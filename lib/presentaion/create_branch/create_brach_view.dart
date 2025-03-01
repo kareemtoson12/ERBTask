@@ -92,7 +92,7 @@ class _CreateBranchState extends State<CreateBranch> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 30.h),
 
                   // Branch Name
                   Text('Branch Name', style: CustomstextStyels.font18blackBold),
@@ -119,7 +119,7 @@ class _CreateBranchState extends State<CreateBranch> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       contentPadding: EdgeInsets.symmetric(
-                        vertical: 20.0,
+                        vertical: 70.0,
                         horizontal: 10.0,
                       ),
                     ),
@@ -179,7 +179,7 @@ class _CreateBranchState extends State<CreateBranch> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 50.h),
+                  SizedBox(height: 90.h),
 
                   // Create Button
                   BlocConsumer<BranchCubit, BranchState>(

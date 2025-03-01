@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task/app/routing/routing.dart';
 import 'package:task/presentaion/create_branch/create_brach_view.dart';
-import 'package:task/presentaion/create_branch/splash/splash_view.dart';
+import 'package:task/presentaion/splash/splash_view.dart';
 import 'package:task/presentaion/home.dart';
 
 class AppRoutes {
