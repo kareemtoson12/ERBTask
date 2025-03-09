@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/app/styles/text_styles.dart';
 
-Widget header(BuildContext context) {
+Widget header(BuildContext context, String text) {
   return Row(
     children: [
       IconButton(
@@ -11,7 +11,7 @@ Widget header(BuildContext context) {
         onPressed: () => Navigator.pop(context),
       ),
       SizedBox(width: 60.dg),
-      Text('Create Branch', style: CustomstextStyels.font20blackBold),
+      Text(text, style: CustomstextStyels.font20blackBold),
     ],
   );
 }

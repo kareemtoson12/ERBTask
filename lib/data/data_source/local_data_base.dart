@@ -22,17 +22,42 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'inventory.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (db, version) async {
         await db.execute('''
-          CREATE TABLE branches (
+        CREATE TABLE branches (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          address TEXT NOT NULL,
+          email TEXT NOT NULL,
+          phoneNumber TEXT NOT NULL
+        )
+      ''');
+
+        await db.execute('''
+        CREATE TABLE inventory_items (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          sku TEXT NOT NULL UNIQUE,
+          category TEXT NOT NULL,
+          subcategory TEXT NOT NULL,
+          brand TEXT NOT NULL
+        )
+      ''');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('''
+          CREATE TABLE inventory_items (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            address TEXT NOT NULL,
-            email TEXT NOT NULL,
-            phoneNumber TEXT NOT NULL
+            sku TEXT NOT NULL UNIQUE,
+            category TEXT NOT NULL,
+            subcategory TEXT NOT NULL,
+            brand TEXT NOT NULL
           )
         ''');
+        }
       },
     );
   }

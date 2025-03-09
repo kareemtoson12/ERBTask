@@ -6,6 +6,7 @@ import 'package:task/app/di.dart';
 import 'package:task/app/routing/app_routes.dart';
 import 'package:task/app/routing/routing.dart' show Routes;
 import 'package:task/presentaion/create_branch/cubit/branch_cubit.dart';
+import 'package:task/presentaion/create_sku.dart/cubit/inventory_cubit.dart';
 
 class Task extends StatelessWidget {
   final AppRoutes appRouter;
@@ -17,6 +18,9 @@ class Task extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<BranchCubit>(create: (context) => BranchCubit(getit())),
+        BlocProvider<InventoryCubit>(
+          create: (context) => InventoryCubit(getit()),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
@@ -25,7 +29,7 @@ class Task extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: appRouter.generateRoute,
-          initialRoute: Routes.splash,
+          initialRoute: Routes.createSku,
           title: 'tasky',
         ),
       ),

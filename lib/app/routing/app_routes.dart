@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task/app/routing/routing.dart';
 import 'package:task/presentaion/create_branch/create_brach_view.dart';
+import 'package:task/presentaion/create_sku.dart/create_sku_view.dart';
 import 'package:task/presentaion/splash/splash_view.dart';
 import 'package:task/presentaion/home.dart';
 
@@ -13,6 +14,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => CreateBranch());
       case Routes.splash:
         return MaterialPageRoute(builder: (context) => SplashScreen());
+      case Routes.createSku:
+        return MaterialPageRoute(builder: (context) => SkuCreationScreen());
 
       default:
         return null;

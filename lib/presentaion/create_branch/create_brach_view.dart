@@ -62,7 +62,7 @@ class _CreateBranchState extends State<CreateBranch> {
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+              borderSide: const BorderSide(color: Colors.grey, width: 1.5),
             ),
             labelText: 'e.g. ${label.split(' ')[0]}',
             border: OutlineInputBorder(
@@ -91,7 +91,7 @@ class _CreateBranchState extends State<CreateBranch> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                header(context),
+                header(context, 'Create Branch'),
                 SizedBox(height: 30.h),
                 _buildTextField(
                   label: 'Branch Name',
