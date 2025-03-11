@@ -14,6 +14,16 @@ class InventoryItem {
     required this.subcategory,
     required this.brand,
   });
+  factory InventoryItem.empty() {
+    return InventoryItem(
+      id: null,
+      name: '',
+      sku: '',
+      category: '',
+      subcategory: '',
+      brand: '',
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

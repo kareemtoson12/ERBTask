@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/app/styles/colors_manager.dart';
-import 'package:task/presentaion/create_branch/cubit/branch_cubit.dart';
+
 import 'package:task/presentaion/create_branch/widget/header.dart';
 import 'package:task/presentaion/create_sku.dart/cubit/inventory_cubit.dart';
 import 'package:task/domain/models/inventory_item.dart';
@@ -36,6 +36,23 @@ class _SkuCreationScreenState extends State<SkuCreationScreen> {
     return '${name.substring(0, 3).toUpperCase()}-${category.substring(0, 3).toUpperCase()}-${brand.substring(0, 3).toUpperCase()}-${DateTime.now().millisecondsSinceEpoch % 10000}';
   }
 
+  void _showDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("OK"),
+              ),
+            ],
+          ),
+    );
+  }
+
   void _createSku() {
     if (_formKey.currentState!.validate()) {
       final sku =
@@ -56,6 +73,9 @@ class _SkuCreationScreenState extends State<SkuCreationScreen> {
       );
 
       context.read<InventoryCubit>().addItem(newItem);
+      _showDialog("Success", "SKU Created Successfully!\nSKU Code: $sku");
+    } else {
+      _showDialog("Error", "Please fill all required fields correctly.");
     }
   }
 
