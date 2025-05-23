@@ -30,7 +30,7 @@ class InventoryDao {
     );
   }
 
-  Future<int> deleteItem(int id) async {
+  Future<int> deleteItem(String id) async {
     final db = await _database;
     return await db.delete('inventory_items', where: 'id = ?', whereArgs: [id]);
   }

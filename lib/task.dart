@@ -33,7 +33,7 @@ class Task extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: appRouter.generateRoute,
-          initialRoute: Routes.searchSku,
+          initialRoute: Routes.splash,
           title: 'tasky',
         ),
       ),

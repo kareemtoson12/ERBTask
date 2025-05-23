@@ -18,15 +18,24 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10.h),
-      child: TextFormField(
-        controller: controller,
-        enabled: isEnabled,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r)),
+      padding: EdgeInsets.only(bottom: 5.h),
+      child: SizedBox(
+        child: TextFormField(
+          controller: controller,
+          enabled: isEnabled,
+
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+            ),
+            labelText: label,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+          ),
+          validator: validator,
         ),
-        validator: validator,
       ),
     );
   }

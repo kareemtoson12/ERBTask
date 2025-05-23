@@ -12,4 +12,21 @@ class InventoryCubit extends Cubit<List<InventoryItem>> {
     final updatedList = await _repository.getAllItems();
     emit(updatedList);
   }
+
+  void deactivateItem(String skuId) {
+    final index = state.indexWhere((item) => item.sku == skuId);
+    if (index != -1) {
+      final updatedItem = state[index].copyWith(isActive: false);
+
+      final updatedList = List<InventoryItem>.from(state)..removeAt(index);
+
+      emit(updatedList);
+
+      _deleteFromDatabase(skuId);
+    }
+  }
+
+  void _deleteFromDatabase(String skuId) async {
+    await _repository.deleteItem(skuId);
+  }
 }

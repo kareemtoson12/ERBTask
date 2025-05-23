@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/app/styles/colors_manager.dart';
+import 'package:task/app/styles/text_styles.dart';
 import 'package:task/presentaion/create_sku.dart/widgets/customsTextField.dart';
 import 'package:task/presentaion/search_sku/cubit/search_cubit.dart';
 
 import 'package:task/domain/models/inventory_item.dart';
 import 'package:task/presentaion/search_sku/cubit/search_state.dart';
+import 'package:task/presentaion/skuDeactivation/sku_deactivation_view.dart';
 
 class SearchSkuScreen extends StatefulWidget {
   const SearchSkuScreen({super.key});
@@ -44,8 +46,27 @@ class _SearchSkuScreenState extends State<SearchSkuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.h),
+        child: AppBar(
+          backgroundColor: ColorsManger.purbleColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+          ),
+          flexibleSpace: Padding(
+            padding: EdgeInsets.only(top: 30.h, left: 16.w, right: 16.w),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                ' SKU Search',
+                style: CustomstextStyels.font20blackBold,
+              ),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: ColorsManger.secondColor,
-      appBar: AppBar(title: const Text('Search SKU')),
+
       body: Padding(
         padding: EdgeInsets.all(16.0.w),
         child: Column(
@@ -66,7 +87,7 @@ class _SearchSkuScreenState extends State<SearchSkuScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      'Search for SKU',
+                      'Search ',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.sp,
@@ -77,6 +98,7 @@ class _SearchSkuScreenState extends State<SearchSkuScreen> {
                 ),
               ),
             ),
+
             SizedBox(height: 20.h),
             BlocListener<SearchSkuCubit, SearchSkuState>(
               listener: (context, state) {
@@ -96,10 +118,41 @@ class _SearchSkuScreenState extends State<SearchSkuScreen> {
                   if (state is SearchSkuLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is SearchSkuSuccess) {
-                    return _buildSkuDetails(state.item);
+                    return Center(child: _buildSkuDetails(state.item));
                   }
                   return const SizedBox.shrink();
                 },
+              ),
+            ),
+            Spacer(),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SkuDeactivationScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 240.w,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    color: ColorsManger.purbleColor,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'deactivate ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -109,35 +162,45 @@ class _SearchSkuScreenState extends State<SearchSkuScreen> {
   }
 
   Widget _buildSkuDetails(InventoryItem item) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-      child: Padding(
-        padding: EdgeInsets.all(16.0.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Name: ${item.name}",
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        SizedBox(height: 70.h),
+        Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(16.0.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Name: ${item.name}",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                Text("SKU: ${item.sku}", style: TextStyle(fontSize: 14.sp)),
+                SizedBox(height: 5.h),
+                Text(
+                  "Category: ${item.category}",
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+                SizedBox(height: 5.h),
+                Text(
+                  "Subcategory: ${item.subcategory}",
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+                SizedBox(height: 5.h),
+                Text("Brand: ${item.brand}", style: TextStyle(fontSize: 14.sp)),
+              ],
             ),
-            SizedBox(height: 5.h),
-            Text("SKU: ${item.sku}", style: TextStyle(fontSize: 14.sp)),
-            SizedBox(height: 5.h),
-            Text(
-              "Category: ${item.category}",
-              style: TextStyle(fontSize: 14.sp),
-            ),
-            SizedBox(height: 5.h),
-            Text(
-              "Subcategory: ${item.subcategory}",
-              style: TextStyle(fontSize: 14.sp),
-            ),
-            SizedBox(height: 5.h),
-            Text("Brand: ${item.brand}", style: TextStyle(fontSize: 14.sp)),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

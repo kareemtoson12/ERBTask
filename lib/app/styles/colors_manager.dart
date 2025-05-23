@@ -5,5 +5,5 @@ class ColorsManger {
   static const Color secondColor = Color(0xffffffff);
   //blue color
   static const Color blueColor = Color.fromRGBO(33, 150, 243, 1);
-  static const Color purbleColor = Color(0xff5F33E1);
+  static const Color purbleColor = Color.fromRGBO(33, 150, 243, 1);
 }

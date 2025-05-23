@@ -5,6 +5,7 @@ class InventoryItem {
   String category;
   String subcategory;
   String brand;
+  bool isActive;
 
   InventoryItem({
     this.id,
@@ -13,7 +14,9 @@ class InventoryItem {
     required this.category,
     required this.subcategory,
     required this.brand,
+    this.isActive = true,
   });
+
   factory InventoryItem.empty() {
     return InventoryItem(
       id: null,
@@ -22,6 +25,7 @@ class InventoryItem {
       category: '',
       subcategory: '',
       brand: '',
+      isActive: true,
     );
   }
 
@@ -33,7 +37,28 @@ class InventoryItem {
       'category': category,
       'subcategory': subcategory,
       'brand': brand,
+      'isActive': isActive,
     };
+  }
+
+  InventoryItem copyWith({
+    int? id,
+    String? name,
+    String? sku,
+    String? category,
+    String? subcategory,
+    String? brand,
+    bool? isActive,
+  }) {
+    return InventoryItem(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      sku: sku ?? this.sku,
+      category: category ?? this.category,
+      subcategory: subcategory ?? this.subcategory,
+      brand: brand ?? this.brand,
+      isActive: isActive ?? this.isActive,
+    );
   }
 
   factory InventoryItem.fromJson(Map<String, dynamic> json) {
@@ -44,6 +69,7 @@ class InventoryItem {
       category: json['category'],
       subcategory: json['subcategory'],
       brand: json['brand'],
+      isActive: (json['isActive'] ?? 1) == 1,
     );
   }
 }

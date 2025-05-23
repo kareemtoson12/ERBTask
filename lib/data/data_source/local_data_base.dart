@@ -20,6 +20,8 @@ class DatabaseHelper {
 
   Future<Database> _initDB() async {
     String path = join(await getDatabasesPath(), 'inventory.db');
+    await deleteDatabase(path);
+
     return await openDatabase(
       path,
       version: 2,
@@ -35,28 +37,22 @@ class DatabaseHelper {
       ''');
 
         await db.execute('''
-        CREATE TABLE inventory_items (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL,
-          sku TEXT NOT NULL UNIQUE,
-          category TEXT NOT NULL,
-          subcategory TEXT NOT NULL,
-          brand TEXT NOT NULL
-        )
-      ''');
+  CREATE TABLE inventory_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    sku TEXT NOT NULL UNIQUE,
+    category TEXT NOT NULL,
+    subcategory TEXT NOT NULL,
+    brand TEXT NOT NULL,
+    isActive INTEGER NOT NULL DEFAULT 1
+  )
+''');
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
-          await db.execute('''
-          CREATE TABLE inventory_items (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            sku TEXT NOT NULL UNIQUE,
-            category TEXT NOT NULL,
-            subcategory TEXT NOT NULL,
-            brand TEXT NOT NULL
-          )
-        ''');
+          await db.execute(
+            'ALTER TABLE inventory_items ADD COLUMN isActive INTEGER NOT NULL DEFAULT 1',
+          );
         }
       },
     );

@@ -8,6 +8,7 @@ import 'package:task/app/styles/text_styles.dart';
 import 'package:task/presentaion/create_branch/cubit/branch_cubit.dart';
 import 'package:task/presentaion/create_branch/widget/header.dart';
 import 'package:task/presentaion/create_branch/widget/show_dialogs.dart';
+import 'package:task/presentaion/create_sku.dart/create_sku_view.dart';
 
 class CreateBranch extends StatefulWidget {
   const CreateBranch({super.key});
@@ -65,6 +66,10 @@ class _CreateBranchState extends State<CreateBranch> {
               borderSide: const BorderSide(color: Colors.grey, width: 1.5),
             ),
             labelText: 'e.g. ${label.split(' ')[0]}',
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -82,6 +87,53 @@ class _CreateBranchState extends State<CreateBranch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: ColorsManger.purbleColor),
+              child: Text(
+                'Menu',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.add_box),
+              title: Text('Create SKU'),
+              onTap: () {
+                Navigator.pop(context); // تغلق الـ Drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SkuCreationScreen(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.h),
+        child: AppBar(
+          backgroundColor: ColorsManger.purbleColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+          ),
+          flexibleSpace: Padding(
+            padding: EdgeInsets.only(top: 30.h, left: 16.w, right: 16.w),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Create Branch',
+                style: CustomstextStyels.font20blackBold,
+              ),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: ColorsManger.secondColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -91,8 +143,7 @@ class _CreateBranchState extends State<CreateBranch> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                header(context, 'Create Branch'),
-                SizedBox(height: 30.h),
+                SizedBox(height: 10.h),
                 _buildTextField(
                   label: 'Branch Name',
                   controller: _nameController,
@@ -122,14 +173,14 @@ class _CreateBranchState extends State<CreateBranch> {
                   validator: (value) {
                     if (value!.isEmpty) return 'Enter email';
                     if (!RegExp(
-                      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
                     ).hasMatch(value)) {
                       return 'Enter a valid email';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 90.h),
+                SizedBox(height: 80.h),
                 BlocConsumer<BranchCubit, BranchState>(
                   listener: (context, state) {
                     if (state is BranchLoaded) {
@@ -175,3 +226,4 @@ class _CreateBranchState extends State<CreateBranch> {
     );
   }
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

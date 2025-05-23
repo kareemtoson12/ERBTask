@@ -5,7 +5,6 @@ import 'package:task/domain/models/branch.dart';
 //DAO design pattern
 
 class BranchDao {
-  //take instance of database
   final database = DatabaseHelper.instance.database;
 
   Future<int> insertBranch(Branch branch) async {
